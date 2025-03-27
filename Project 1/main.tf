@@ -19,4 +19,8 @@ provider "aws" {
 resource "aws_instance" "server-01" {
     ami = "ami-df5de72bdb3b"
     instance_type = "t2.micro"
+
+     tags = {
+       Name = "ubuntu"
+     }
 }
