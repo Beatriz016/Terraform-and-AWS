@@ -1,2 +1,2 @@
 # Terraform-and-AWS
-This is a study project of Terraform with LocalStack(AWS)
+This is a Terraform study project using LocalStack to mock AWS Cloud
