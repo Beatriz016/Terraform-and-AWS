@@ -15,12 +15,27 @@ provider "aws" {
 }
 
 
-
-resource "aws_instance" "server-01" {
-    ami = "ami-df5de72bdb3b"
-    instance_type = "t2.micro"
-
-     tags = {
-       Name = "ubuntu"
-     }
+resource "aws_vpc" "vpc-01" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "production"
+  }
 }
+
+resource "aws_subnet" "subnet-01" {
+  vpc_id = aws_vpc.vpc-01.id
+  cidr_block = "10.0.1.0/24"
+  tags = {
+    Name = "prod-subnet"
+  }
+}
+
+
+# resource "aws_instance" "server-01" {
+#     ami = "ami-df5de72bdb3b"
+#     instance_type = "t2.micro"
+
+#      tags = {
+#        # Name = "ubuntu"
+#      }
+# }
