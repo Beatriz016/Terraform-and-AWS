@@ -28,7 +28,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.prod-vpc.id
 }
 
-# 3. Create public route table
+# 3. Create custom route table
 resource "aws_route_table" "prod-route-table" {
   vpc_id = aws_vpc.prod-vpc.id
 
@@ -44,5 +44,16 @@ resource "aws_route_table" "prod-route-table" {
 
   tags = {
     Name = "Prod"
+  }
+}
+
+# 4. Create subnets
+resource "aws_subnet" "subnet-01" {
+  vpc_id = aws_vpc.prod-vpc.id
+  cidr_block = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "prod-subnet"
   }
 }
