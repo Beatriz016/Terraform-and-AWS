@@ -108,7 +108,7 @@ resource "aws_security_group" "allow_web" {
 
 # 7. Create a Network Interface with an IP address in the subnet that was created
 resource "aws_network_interface" "web-server-01" {
-  subnet_id = "aws_subnet.subnet-01.id"
+  subnet_id = aws_subnet.subnet-01.id
   private_ips = ["10.0.1.50"]
   security_groups = [aws_security_group.allow_web.id]
 
@@ -116,7 +116,7 @@ resource "aws_network_interface" "web-server-01" {
 
 # 8. Assign an Elastic IP address to the Network Interface 
 resource "aws_eip" "es" {
-  network_interface = "aws_network_interface.web-server-01.id"
+  network_interface = aws_network_interface.web-server-01.id
   associate_with_private_ip = "10.0.1.50"
   depends_on = [aws_internet_gateway.gw]
 }
