@@ -57,3 +57,9 @@ resource "aws_subnet" "subnet-01" {
     Name = "prod-subnet"
   }
 }
+
+# 5. Assciate  subnet with Route Table
+resource "aws_route_table_association" "art" {
+  subnet_id = aws_subnet.subnet-01.id
+  route_table_id = aws_route_table.prod-route-table.id
+}
