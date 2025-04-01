@@ -14,6 +14,13 @@ provider "aws" {
   }
 }
 
+resource "aws_subnet" "subnet-01" {
+  vpc_id = aws_vpc.vpc-01.id
+  cidr_block = "10.0.1.0/24"
+  tags = {
+    Name = "prod-subnet"
+  }
+}
 
 resource "aws_vpc" "vpc-01" {
   cidr_block = "10.0.0.0/16"
@@ -22,11 +29,18 @@ resource "aws_vpc" "vpc-01" {
   }
 }
 
-resource "aws_subnet" "subnet-01" {
-  vpc_id = aws_vpc.vpc-01.id
-  cidr_block = "10.0.1.0/24"
+resource "aws_vpc" "vpc-02" {
+  cidr_block = "10.1.0.0/16"
   tags = {
-    Name = "prod-subnet"
+    Name = "development"
+  }
+}
+
+resource "aws_subnet" "subnet-02" {
+  vpc_id = aws_vpc.vpc-02.id
+  cidr_block = "10.1.1.0/24"
+  tags = {
+    Name = "dev-subnet"
   }
 }
 
