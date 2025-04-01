@@ -118,7 +118,31 @@ resource "aws_network_interface" "web-server-01" {
 resource "aws_eip" "es" {
   network_interface = "aws_network_interface.web-server-01.id"
   associate_with_private_ip = "10.0.1.50"
-  depends_on = aws_internet_gateway.gw
+  depends_on = [aws_internet_gateway.gw]
 }
 
+# 9. Create Ubuntu Servet and  install/enable apache2
+resource "aws_instance" "web-server-instance" {
+  ami = "ami-df5de72bdb3b"
+  instance_type = "t2.micro"
+  availability_zone = "us-east-1a"
+  key_name = "main-key"
+
+  network_interface {
+    device_index = 0
+    network_interface_id = aws_network_interface.web-server-01.id
+  }
+
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt update -y
+              sudo apt install apache2 -y
+              sudo systemctl start apache2
+              sudo bash -c 'echo web server > /var/www/html/index.html'
+              EOF
+
+  tags = {
+    Name = "web-server"
+  }
+}
 
