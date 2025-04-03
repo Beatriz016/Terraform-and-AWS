@@ -3,3 +3,10 @@
 *.tfstate
 *.tfstate.backup
 *.tfvars
+*.tfstate.*
+*.terraform.lock.hcl
+
+# Secrets
+*.pem
+*.key
+*.secret
