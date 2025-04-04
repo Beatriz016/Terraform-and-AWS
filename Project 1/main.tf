@@ -121,6 +121,10 @@ resource "aws_eip" "es" {
   depends_on = [aws_internet_gateway.gw]
 }
 
+output "server_public_ip" {
+  value = aws_eip.es.public_ip
+}
+
 # 9. Create Ubuntu Servet and  install/enable apache2
 resource "aws_instance" "web-server-instance" {
   ami = "ami-df5de72bdb3b"
@@ -146,3 +150,12 @@ resource "aws_instance" "web-server-instance" {
   }
 }
 
+
+
+output "server_private_ip" {
+  value = aws_instance.web-server-instance.private_ip
+}
+
+output "server_id" {
+  value = aws_instance.web-server-instance.id
+}
